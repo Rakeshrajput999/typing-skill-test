@@ -17,7 +17,9 @@ const ResultComponent = () => {
     <>
       <div className="text-stone-900 w-full h-full  flex justify-center content-center">
         <div>
-          <div className="text-6xl text-center">Congratulations!!! </div>
+          <div className="md:text-6xl text-xl text-center">
+            Congratulations!!!{" "}
+          </div>
 
           <div
             className=" m-5 text-center text-lg
