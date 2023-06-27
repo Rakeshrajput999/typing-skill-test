@@ -30,8 +30,9 @@ const ResultComponent = () => {
             <p>
               Your Typing speed is{" "}
               {Math.round(
-                (state.correctWord * 60) / (state.initialTime - state.seconds)
-              )}{" "}
+                (state.correctWord * 60) /
+                  (state.initialTime - state.seconds || 1)
+              ) ?? 1}{" "}
               words per minute
             </p>
           </div>
