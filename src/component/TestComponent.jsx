@@ -54,7 +54,7 @@ const TestComponent = () => {
                 id=""
                 cols={30}
                 rows={10}
-                defaultValue={state.typedText}
+                value={state.typedText}
                 onKeyDown={(e) => {
                   if (e.key === " ") {
                     dispatch(setTypedText(state.typedText + " "));
