@@ -6,11 +6,10 @@ import { setParagraph, setTimer } from "../slices/typingSlice";
 import randomParagraphData from "../helper/Data";
 const FormComponent = () => {
   const [article, setArticle] = useState();
-  const [time, setTime] = useState();
-  const state = useSelector((state) => state.typing);
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const state = useSelector((state) => state.typing);
   const fetchArticle = async () => {
     let Number = Math.floor(Math.random() * 10);
     let res = randomParagraphData[Number];
@@ -22,16 +21,15 @@ const FormComponent = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     dispatch(setParagraph(article));
-    dispatch(setTimer(time * 60));
     navigate("/test");
   };
   return (
     <>
-      <div className="text-stone-950">
+      <div className="text-stone-950 mt-4">
         <div className=" ">
           <div>
             Copy paste the paragraph for test or click here to generate
-            <button onClick={() => fetchArticle()} className="btn">
+            <button onClick={() => fetchArticle()} className="m-4 btn">
               Random Paragraph
             </button>
           </div>
@@ -54,39 +52,41 @@ const FormComponent = () => {
               }}
             ></textarea>
             <div></div>
-            <div className="flex gap-3 w-full justify-between items-center">
-              <label htmlFor="time" className="font-bold text-xl">
-                Duration:
-              </label>
-              <div>
-                <input
-                  type="radio"
-                  name="min"
-                  id="1-min"
-                  value={1}
-                  onChange={() => setTime(1)}
-                />
-                <label htmlFor="1-min">1 Min</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="min"
-                  id="1-min"
-                  value={2}
-                  onChange={() => setTime(2)}
-                />
-                <label htmlFor="1-min">2 Min</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="min"
-                  id="5-min"
-                  value={5}
-                  onChange={() => setTime(5)}
-                />
-                <label htmlFor="5-min"> 5 Min </label>
+            <label htmlFor="time" className="font-bold text-xl">
+              select duration for test:
+            </label>
+            <div className="flex max-md:flex-col gap-3 w-full justify-between items-center">
+              <div className="flex justify-between items-center w-full ">
+                <div>
+                  <input
+                    type="radio"
+                    name="min"
+                    id="1-min"
+                    value={1}
+                    onChange={() => dispatch(setTimer(60))}
+                  />
+                  <label htmlFor="1-min">1 Min</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="min"
+                    id="1-min"
+                    value={2}
+                    onChange={() => dispatch(setTimer(120))}
+                  />
+                  <label htmlFor="1-min">2 Min</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="min"
+                    id="5-min"
+                    value={5}
+                    onChange={() => dispatch(setTimer(180))}
+                  />
+                  <label htmlFor="5-min"> 5 Min </label>
+                </div>
               </div>
               <div>OR</div>
               <div>
@@ -97,13 +97,12 @@ const FormComponent = () => {
                   type="number"
                   id="time"
                   onChange={(e) => {
-                    setTime(e.target.value);
+                    dispatch(setTimer(e.target.value * 60));
                   }}
                 />
                 <label htmlFor="">Minutes</label>
               </div>
             </div>
-
             <div>
               <button type="submit" className="my-3 btn w-full ">
                 Start Test

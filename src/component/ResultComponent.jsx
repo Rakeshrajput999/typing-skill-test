@@ -9,13 +9,9 @@ const ResultComponent = () => {
 
   const dispatch = useDispatch();
 
-  // const rewardsMessage()=>{
-  //   return ""
-
-  // }
   return (
     <>
-      <div className="text-stone-900 w-full h-full  flex justify-center content-center">
+      <div className="text-stone-900 w-full h-full  flex justify-center items-center">
         <div>
           <div className="md:text-6xl text-xl text-center">
             Congratulations!!!{" "}
@@ -32,9 +28,8 @@ const ResultComponent = () => {
             <p>
               Your Typing speed is{" "}
               {Math.round(
-                (state.correctWord * 60) /
-                  (state.initialTime - state.seconds || 1)
-              ) ?? 1}{" "}
+                (state.correctWord * 60) / (state.initialTime - state.seconds)
+              ) ?? 0}{" "}
               words per minute
             </p>
           </div>
